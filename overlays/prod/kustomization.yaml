@@ -31,13 +31,6 @@ patchesJson6902:
           limits:
             cpu: "500m"
             memory: "512Mi"
-      - op: add
-        path: /spec/template/spec/containers/0/env
-        value:
-          - name: APP_STORE
-            value: "redis"
-          - name: APP_REDIS_URL
-            value: "redis://snak-app-dragonfly.production.svc.cluster.local:6379"
   - target:
       group: dragonflydb.io
       version: v1alpha1
