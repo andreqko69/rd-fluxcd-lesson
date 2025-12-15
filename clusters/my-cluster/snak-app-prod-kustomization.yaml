@@ -12,5 +12,3 @@ spec:
   path: ./overlays/prod
   prune: true
   wait: true
-  dependsOn:
-    - name: namespaces
