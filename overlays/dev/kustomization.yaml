@@ -15,13 +15,5 @@ replicas:
   - name: snak-app-deployment
     count: 1
 
-patchesJson6902:
-  - target:
-      group: networking.k8s.io
-      version: v1
-      kind: Ingress
-      name: snak-ingress
-    patch: |-
-      - op: replace
-        path: /spec/rules/0/host
-        value: app.snak.dev
+patchesStrategicMerge:
+  - ingress-patch.yaml
