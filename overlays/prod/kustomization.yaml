@@ -14,8 +14,6 @@ commonLabels:
 replicas:
   - name: snak-app-deployment
     count: 3
-  - name: snak-app-dragonfly
-    count: 2
 
 patchesJson6902:
   - target:
@@ -34,6 +32,16 @@ patchesJson6902:
           limits:
             cpu: "500m"
             memory: "512Mi"
+  - target:
+      group: dragonflydb.io
+      version: v1alpha1
+      kind: Dragonfly
+      name: snak-app-dragonfly
+      namespace: production
+    patch: |-
+      - op: replace
+        path: /spec/replicas
+        value: 2
 
 resources:
   - hpa.yaml
