@@ -1,0 +1,20 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+metadata:
+  name: snak-app-dev
+
+bases:
+  - ../../base
+
+namespace: development
+
+commonLabels:
+  environment: dev
+
+replicas:
+  - name: snak-app-deployment
+    count: 1
+
+images:
+  - name: andreqko/snak-app
+    newTag: dev

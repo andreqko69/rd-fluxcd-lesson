@@ -1,0 +1,37 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+metadata:
+  name: snak-app-prod
+
+namespace: production
+
+bases:
+  - ../../base
+
+commonLabels:
+  environment: prod
+
+replicas:
+  - name: snak-app-deployment
+    count: 3
+  - name: snak-dragonfly
+    count: 2
+
+patches:
+  - target:
+      kind: Deployment
+      name: snak-app-deployment
+    patch: |-
+      - op: add
+        path: /spec/template/spec/containers/0/resources/requests/cpu
+        value: "200m"
+      - op: add
+        path: /spec/template/spec/containers/0/resources/limits/cpu
+        value: "500m"
+
+resources:
+  - hpa.yaml
+
+images:
+  - name: andreqko/snak-app
+    newTag: latest
