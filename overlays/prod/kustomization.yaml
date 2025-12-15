@@ -14,20 +14,26 @@ commonLabels:
 replicas:
   - name: snak-app-deployment
     count: 3
-  - name: snak-dragonfly
+  - name: snak-app-dragonfly
     count: 2
 
-patches:
+patchesJson6902:
   - target:
+      group: apps
+      version: v1
       kind: Deployment
       name: snak-app-deployment
+      namespace: production
     patch: |-
       - op: add
-        path: /spec/template/spec/containers/0/resources/requests/cpu
-        value: "200m"
-      - op: add
-        path: /spec/template/spec/containers/0/resources/limits/cpu
-        value: "500m"
+        path: /spec/template/spec/containers/0/resources
+        value:
+          requests:
+            cpu: "200m"
+            memory: "256Mi"
+          limits:
+            cpu: "500m"
+            memory: "512Mi"
 
 resources:
   - hpa.yaml
