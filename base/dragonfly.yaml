@@ -6,5 +6,5 @@ metadata:
   labels:
     app: dragonfly
 spec:
-  image: docker.dragonflydb.io/dragonfly:latest
+  image: docker.dragonflydb.io/dragonflydb/dragonfly:v1.29.0
   replicas: 1
