@@ -1,7 +1,7 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: snak-app
+  name: snak-app-prod
   namespace: flux-system
 spec:
   interval: 10m
@@ -9,6 +9,8 @@ spec:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  path: ./base
+  path: ./overlays/prod
   prune: true
   wait: true
+  dependsOn:
+    - name: namespaces
