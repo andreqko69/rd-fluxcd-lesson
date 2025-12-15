@@ -1,11 +1,16 @@
-apiVersion: v1
-kind: Service
+apiVersion: networking.k8s.io/v1
+kind: Ingress
 metadata:
-  name: snak-app-service
+  name: snak-ingress
 spec:
-  type: ClusterIP
-  selector:
-    app: snak-app
-  ports:
-    - port: 8080
-      targetPort: 8080
+  rules:
+    - host: app.snak
+      http:
+        paths:
+          - pathType: Prefix
+            path: "/"
+            backend:
+              service:
+                name: snak-app-service
+                port:
+                  number: 8080
