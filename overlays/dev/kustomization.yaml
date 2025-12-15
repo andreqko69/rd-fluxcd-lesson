@@ -15,5 +15,12 @@ replicas:
   - name: snak-app-deployment
     count: 1
 
+configMapGenerator:
+  - name: snak-config
+    literals:
+      - APP_STORE=redis
+      - APP_REDIS_URL=redis://snak-app-dragonfly.development.svc.cluster.local:6379
+    behavior: merge
+
 patchesStrategicMerge:
   - ingress-patch.yaml

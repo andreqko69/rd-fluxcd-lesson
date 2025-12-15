@@ -9,6 +9,12 @@ resources:
   - ingress.yaml
   - dragonfly.yaml
 
+configMapGenerator:
+  - name: snak-config
+    literals:
+      - APP_STORE=redis
+      - APP_REDIS_URL=redis://snak-app-dragonfly.svc.cluster.local:6379
+
 commonLabels:
   app.kubernetes.io/name: snak-app
   app.kubernetes.io/managed-by: flux
